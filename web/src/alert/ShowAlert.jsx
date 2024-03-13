@@ -1,20 +1,21 @@
-import { Alert, Snackbar } from "@mui/material"
+import { Alert, Snackbar } from "@mui/material";
+import { observer } from "mobx-react-lite";
 
-export function ShowAlert({ severity = "success", message, onClose }) {
+export const ShowAlert = observer(({ AlertProps }) => {
   return (
     <Snackbar
-      open={true}
+      open={AlertProps.show}
       autoHideDuration={3000}
-      onClose={onClose}
+      onClose={() => AlertProps.onClose()}
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
     >
       <Alert
-        severity={severity}
+        severity={AlertProps.severity}
         variant="filled"
-        sx={{ width: '100%' }}
+        sx={{ width: "100%" }}
       >
-        {message}
+        {AlertProps.message}
       </Alert>
     </Snackbar>
-  )
-}
+  );
+});

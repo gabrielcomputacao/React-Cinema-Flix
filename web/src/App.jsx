@@ -5,19 +5,26 @@ import { CheckoutPage } from "./page/CheckoutPage";
 import { SelectionPage } from "./page/SelectionPage";
 import { darkTheme } from "./theme/dark";
 
+import ShowAlertStore from "./store/ShowAlertStore";
+
 export function App() {
   const [selectedFilm, setSelectedFilm] = useState();
-  const [showAlert, setshowAlert] = useState();
 
   return (
     <ThemeProvider theme={darkTheme}>
-      {showAlert && <ShowAlert message={showAlert.message} severity={showAlert.severity} onClose={() => setshowAlert()} />}
+      <ShowAlert AlertProps={ShowAlertStore} />
       <CssBaseline />
-      {selectedFilm
-        ? <CheckoutPage selectedFilm={selectedFilm} showAlert={(message, severity) => setshowAlert({ message, severity })} done={() => setSelectedFilm()} />
-        : <SelectionPage setSelectedFilm={setSelectedFilm} />
-
-      }
+      {selectedFilm ? (
+        <CheckoutPage
+          selectedFilm={selectedFilm}
+          showAlert={(message, severity) =>
+            ShowAlertStore.setshowAlert(message, severity)
+          }
+          done={() => setSelectedFilm()}
+        />
+      ) : (
+        <SelectionPage setSelectedFilm={setSelectedFilm} />
+      )}
     </ThemeProvider>
-  )
+  );
 }

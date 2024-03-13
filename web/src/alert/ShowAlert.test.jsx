@@ -2,26 +2,30 @@ import { act, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ShowAlert } from "./ShowAlert";
 
+import ShowAlertStore from "../store/ShowAlertStore";
 
 describe("ShowAlert Component test", () => {
   beforeEach(() => {
-    vi.useFakeTimers()
-  })
+    vi.useFakeTimers();
+  });
 
   afterEach(() => {
-    vi.restoreAllMocks()
-  })
+    vi.restoreAllMocks();
+  });
 
   it("renders correctly", async () => {
+    const fun = vi.fn();
 
-    const onCloseMock = vi.fn();
+    ShowAlertStore.setOnClose(fun);
 
-    await act(() => render(<ShowAlert message="Same message" severity="success" onClose={onCloseMock} />));
+    ShowAlertStore.setshowAlert("Same message", "success");
 
-    const messageElement = screen.getByText("Same message")
+    await act(() => render(<ShowAlert AlertProps={ShowAlertStore} />));
+
+    const messageElement = screen.getByText("Same message");
     expect(messageElement).toBeInTheDocument();
-    expect(onCloseMock).not.toBeCalled();
+    expect(ShowAlertStore.onClose).not.toBeCalled();
     act(() => vi.advanceTimersByTime(3000));
-    expect(onCloseMock).toBeCalled();
+    expect(ShowAlertStore.onClose).toBeCalled();
   });
 });
