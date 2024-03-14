@@ -1,8 +1,8 @@
 ## Bibliotecas Instaladas
 
-### MobX
+### Context API
 
-Para implementar a arquitetura flux , foi escolhido a biblioteca mobX, por ser menos verbosa que o redux.
+Para implementar a arquitetura flux , foi escolhido a api nativa do react context Api, porque o sistema não precisava escalar tanto e com a api nativa foi de fácil implementação.
 
 ### React router Dom
 

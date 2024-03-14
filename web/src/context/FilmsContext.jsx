@@ -4,6 +4,8 @@ export const FilmsContext = createContext();
 
 export const FilmsProvider = ({ children }) => {
   const [selectedFilm, setSelectedFilm] = useState();
+  const [selectedSession, setSelectedSession] = useState();
+  const [selectedSeats, setSelectedSeats] = useState([]);
   const [showAlert, setShowAlert] = useState({
     message: "",
     severity: "success",
@@ -30,6 +32,10 @@ export const FilmsProvider = ({ children }) => {
         showAlert,
         onSetShowAlert,
         onClose,
+        selectedSession,
+        setSelectedSession,
+        selectedSeats,
+        setSelectedSeats,
       }}
     >
       {children}

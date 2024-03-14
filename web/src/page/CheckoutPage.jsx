@@ -1,58 +1,22 @@
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import {
-  Box,
-  Button,
-  Chip,
-  Container,
-  Grid,
-  IconButton,
-  List,
-  ListItem,
-  ListItemText,
-  Paper,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Container, Grid, Paper, Typography } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Seats } from "../components/Seats";
+import { useState } from "react";
 import { useFilms } from "../hooks/useFilms";
 
 import { useNavigate } from "react-router-dom";
-
-const formatter = new Intl.NumberFormat("pt-BR", {
-  style: "currency",
-  currency: "BRL",
-});
+import { ButtonConfirm } from "../components/ButtonConfirm";
+import { Cart } from "../components/Cart";
+import { Sections } from "../components/Sections";
+import { SelectSeat } from "../components/SelectSeat";
+import { DescriptionFilm } from "../components/DescriptionFilm";
 
 export function CheckoutPage() {
-  const { selectedFilm, setSelectedFilm, onSetShowAlert } = useFilms();
-  const [selectedSession, setSelectedSession] = useState();
+  const { selectedFilm, onSetShowAlert, selectedSession, selectedSeats } =
+    useFilms();
+
   const [bookingName, setBookingName] = useState("");
-  const [selectedSeats, setSelectedSeats] = useState([]);
-  const [bookingSeats, setBookingSeats] = useState([]);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (selectedSession) {
-      axios
-        .get(
-          `http://localhost:3000/bookings?filmId=${selectedFilm.id}&session=${selectedSession.session}`
-        )
-        .then((response) => {
-          setBookingSeats(response.data.flatMap((obj) => obj.seats));
-        });
-
-      setSelectedSeats([]);
-    }
-  }, [selectedSession]);
-
-  function toogleSeatClick(seat) {
-    setSelectedSeats((prev) =>
-      prev.includes(seat) ? prev.filter((i) => i !== seat) : [...prev, seat]
-    );
-  }
 
   async function handleBookingSubmit(e) {
     e.preventDefault();
@@ -94,119 +58,21 @@ export function CheckoutPage() {
             gridTemplateRows="repeat(1fr, auto)"
             gap={1}
           >
-            <Paper
-              sx={{
-                gridRow: "1",
-                padding: "1rem",
-                display: "flex",
-                gap: "1rem",
-              }}
-            >
-              <Typography variant="h6">Qual sessão?</Typography>
-              {selectedFilm.sessions.map((s) => (
-                <Chip
-                  key={s.session}
-                  label={s.session}
-                  variant={
-                    s.session === selectedSession?.session
-                      ? "filled"
-                      : "outlined"
-                  }
-                  onClick={() => setSelectedSession(s)}
-                />
-              ))}
-            </Paper>
-            {selectedSession && (
-              <Paper sx={{ gridRow: "2 / 4", padding: "1rem" }}>
-                <Typography variant="h6">
-                  Selecione seu(s) assento(s)
-                </Typography>
-                <Typography
-                  variant="h6"
-                  margin=" 1rem 0"
-                  sx={{
-                    textAlign: "center",
-                    border: "1px solid",
-                    borderColor: "primary.default",
-                  }}
-                >
-                  Tela
-                </Typography>
-                <Seats
-                  lockSeats={bookingSeats}
-                  selectedSeats={selectedSeats}
-                  toogleSeatClick={toogleSeatClick}
-                />
-              </Paper>
-            )}
+            <Sections />
+            {selectedSession && <SelectSeat />}
+
             <Paper sx={{ gridColumn: "2", gridRow: "span 3", padding: "1rem" }}>
               <Grid display={"flex"} flexDirection={"column"} gap={3}>
-                <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                  <img
-                    src={selectedFilm.url}
-                    style={{
-                      height: "400px",
-                      borderRadius: "10px",
-                      margin: "0 auto",
-                    }}
-                  />
-                  <Typography variant="h5">{selectedFilm.name}</Typography>
-                  <Typography variant="body1" sx={{ textAlign: "justify" }}>
-                    <strong>Sinopse:</strong> {selectedFilm.sinopse}
-                  </Typography>
-                </Box>
+                <DescriptionFilm />
 
                 {Boolean(selectedSeats.length) && (
                   <>
-                    <Box>
-                      <Typography variant="subtitle2">Carrinho</Typography>
-                      <List
-                        sx={{
-                          width: "100%",
-                          padding: "1rem",
-                          bgcolor: "background.paper",
-                        }}
-                      >
-                        {selectedSeats.map((seat) => (
-                          <ListItem
-                            key={seat}
-                            disableGutters
-                            secondaryAction={
-                              <IconButton onClick={() => toogleSeatClick(seat)}>
-                                <DeleteOutlineIcon />
-                              </IconButton>
-                            }
-                          >
-                            <ListItemText
-                              primary={`Assento ${seat} (${formatter.format(
-                                selectedSession?.value
-                              )})`}
-                            />
-                          </ListItem>
-                        ))}
-                      </List>
-                      <Typography>
-                        Total:{" "}
-                        {formatter.format(
-                          (selectedSeats.length * selectedSession?.value) | 0
-                        )}
-                      </Typography>
-                    </Box>
+                    <Cart />
                     <form onSubmit={handleBookingSubmit}>
-                      <Box display="flex" flexDirection="column" gap={2}>
-                        <TextField
-                          name="name"
-                          label="Nome"
-                          placeholder="Responsável pela reserva"
-                          value={bookingName}
-                          onChange={({ target }) =>
-                            setBookingName(target.value)
-                          }
-                        />
-                        <Button type="submit" variant="contained">
-                          Confirmar
-                        </Button>
-                      </Box>
+                      <ButtonConfirm
+                        bookingName={bookingName}
+                        setBookingName={setBookingName}
+                      />
                     </form>
                   </>
                 )}
