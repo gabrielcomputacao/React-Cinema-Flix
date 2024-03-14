@@ -16,20 +16,23 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Seats } from "../components/Seats";
-import { useSelectedFilm } from "../hooks/useSelectedFilm";
+import { useFilms } from "../hooks/useFilms";
+
+import { useNavigate } from "react-router-dom";
 
 const formatter = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL",
 });
 
-export function CheckoutPage({ showAlert }) {
+export function CheckoutPage() {
+  const { selectedFilm, setSelectedFilm, onSetShowAlert } = useFilms();
   const [selectedSession, setSelectedSession] = useState();
   const [bookingName, setBookingName] = useState("");
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [bookingSeats, setBookingSeats] = useState([]);
 
-  const { selectedFilm, setSelectedFilm } = useSelectedFilm();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (selectedSession) {
@@ -55,7 +58,7 @@ export function CheckoutPage({ showAlert }) {
     e.preventDefault();
 
     if (!bookingName) {
-      showAlert("Informar o nome da reserva", "error");
+      onSetShowAlert("Informar o nome da reserva", "error");
       return;
     }
 
@@ -72,8 +75,8 @@ export function CheckoutPage({ showAlert }) {
       },
     });
 
-    showAlert("Reserva efetuada com sucesso!", "success");
-    setSelectedFilm();
+    onSetShowAlert("Reserva efetuada com sucesso!", "success");
+    navigate("/");
   }
 
   return (

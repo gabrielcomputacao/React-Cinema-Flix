@@ -22,8 +22,8 @@ export const ListCardFilms = ({ listFilms }) => {
             },
           }}
         >
-          {listFilms.map((film) => (
-            <CardFilm key={film.id} film={film} />
+          {listFilms.map((film, index) => (
+            <CardFilm key={film.id} film={film} index={index} />
           ))}
         </Box>
       </Grid>

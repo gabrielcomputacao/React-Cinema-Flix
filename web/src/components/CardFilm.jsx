@@ -1,13 +1,15 @@
-import { Link, Paper, Typography } from "@mui/material";
-import { useSelectedFilm } from "../hooks/useSelectedFilm";
+import { Paper, Typography } from "@mui/material";
 
-export const CardFilm = ({ film }) => {
-  const { setSelectedFilm } = useSelectedFilm();
+import { Link } from "react-router-dom";
+import { useFilms } from "../hooks/useFilms";
+
+export const CardFilm = ({ film, index }) => {
+  const { setSelectedFilm } = useFilms();
 
   return (
     <Link
       key={film.id}
-      href="#"
+      to={`/${index}`}
       underline="none"
       onClick={() => setSelectedFilm(film)}
       data-testid="film-display"

@@ -2,21 +2,20 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 
 import { ShowAlert } from "./alert/ShowAlert";
 
-import { SelectionPage } from "./page/SelectionPage";
 import { darkTheme } from "./theme/dark";
 
-import ShowAlertStore from "./store/ShowAlertStore";
-import { SelectedFilmProvider } from "./context/SelectedFilmContext";
+import { FilmsProvider } from "./context/FilmsContext";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes";
 
 export function App() {
   return (
-    <SelectedFilmProvider>
+    <FilmsProvider>
       <ThemeProvider theme={darkTheme}>
-        <ShowAlert AlertProps={ShowAlertStore} />
+        <ShowAlert />
         <CssBaseline />
-
-        <SelectionPage />
+        <RouterProvider router={router} />
       </ThemeProvider>
-    </SelectedFilmProvider>
+    </FilmsProvider>
   );
 }

@@ -1,21 +1,23 @@
 import { Alert, Snackbar } from "@mui/material";
-import { observer } from "mobx-react-lite";
+import { useFilms } from "../hooks/useFilms";
 
-export const ShowAlert = observer(({ AlertProps }) => {
+export const ShowAlert = () => {
+  const { showAlert, onClose } = useFilms();
+
   return (
     <Snackbar
-      open={AlertProps.show}
+      open={showAlert.show}
       autoHideDuration={3000}
-      onClose={() => AlertProps.onClose()}
+      onClose={() => onClose()}
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
     >
       <Alert
-        severity={AlertProps.severity}
+        severity={showAlert.severity}
         variant="filled"
         sx={{ width: "100%" }}
       >
-        {AlertProps.message}
+        {showAlert.message}
       </Alert>
     </Snackbar>
   );
-});
+};
