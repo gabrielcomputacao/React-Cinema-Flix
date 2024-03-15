@@ -1,12 +1,10 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { expect, it, vi } from "vitest";
-
 import { act } from "react-dom/test-utils";
-
-import axios from "axios";
+import { expect, it, vi } from "vitest";
 import { App } from "../App";
+import { fireEvent, render, screen } from "@testing-library/react";
+import axios from "axios";
 
-it("shoudl be render Section component", async () => {
+it("should be render DescriptionFilm ", async () => {
   vi.spyOn(axios, "get").mockResolvedValue({
     data: [
       {
@@ -56,5 +54,9 @@ it("shoudl be render Section component", async () => {
 
   fireEvent.click(elementCardFilm);
 
-  expect(screen.getAllByTestId("sessions-film")).toHaveLength(3);
+  const elementSinopse = screen.getByText(
+    'Um romance trágico floresce entre um passageiro pobre e uma aristocrata a bordo do "inafundável" RMS Titanic, enfrentando a catástrofe iminente.'
+  );
+
+  expect(elementSinopse).toBeInTheDocument();
 });

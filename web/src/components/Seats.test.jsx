@@ -1,12 +1,10 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { expect, it, vi } from "vitest";
-
 import { act } from "react-dom/test-utils";
-
-import axios from "axios";
+import { expect, it, vi } from "vitest";
 import { App } from "../App";
+import { fireEvent, render, screen } from "@testing-library/react";
+import axios from "axios";
 
-it("shoudl be render Section component", async () => {
+it("should be render list seats ", async () => {
   vi.spyOn(axios, "get").mockResolvedValue({
     data: [
       {
@@ -56,5 +54,11 @@ it("shoudl be render Section component", async () => {
 
   fireEvent.click(elementCardFilm);
 
-  expect(screen.getAllByTestId("sessions-film")).toHaveLength(3);
+  const elementSession = screen.getByText("15:00");
+
+  fireEvent.click(elementSession);
+
+  const elementIconButton = screen.getAllByTestId("iconesButton");
+
+  expect(elementIconButton).toHaveLength(11 * 15);
 });

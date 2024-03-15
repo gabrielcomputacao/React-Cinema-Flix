@@ -1,10 +1,11 @@
 import { render, screen } from "@testing-library/react";
-import axios from "axios";
 import { act } from "react-dom/test-utils";
 import { expect, it, vi } from "vitest";
+
+import axios from "axios";
 import { App } from "../App";
 
-it("should be render correctly CardFilm", async () => {
+it("should be render correctly ListCardFilm", async () => {
   vi.spyOn(axios, "get").mockResolvedValue({
     data: [
       {
@@ -27,7 +28,7 @@ it("should be render correctly CardFilm", async () => {
 
   await act(() => render(<App />));
 
-  const filmElement = screen.getByText("Film 1");
+  const elementListCardFilms = screen.getAllByTestId("film-display");
 
-  expect(filmElement).toBeInTheDocument();
+  expect(elementListCardFilms).toHaveLength(3);
 });

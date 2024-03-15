@@ -40,6 +40,7 @@ export const Seats = () => {
               <IconButton
                 key={c}
                 title={seat}
+                data-testid="iconesButton"
                 disabled={bookingSeats.includes(seat)}
                 onClick={() => toogleSeatClick(seat, setSelectedSeats)}
               >
