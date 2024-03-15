@@ -1,8 +1,9 @@
 import { Chip, Paper, Typography } from "@mui/material";
-import { useFilms } from "../hooks/useFilms";
+import { useContextFilms } from "../hooks/useContextFilms";
 
 export const Sections = () => {
-  const { selectedFilm, selectedSession, setSelectedSession } = useFilms();
+  const { selectedFilm, selectedSession, setSelectedSession } =
+    useContextFilms();
 
   return (
     <Paper

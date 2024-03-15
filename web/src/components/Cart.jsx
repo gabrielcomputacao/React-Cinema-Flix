@@ -8,8 +8,8 @@ import {
 } from "@mui/material";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { useFilms } from "../hooks/useFilms";
 import toogleSeatClick from "../utils/toogleSeatClick";
+import { useContextFilms } from "../hooks/useContextFilms";
 
 const formatter = new Intl.NumberFormat("pt-BR", {
   style: "currency",
@@ -17,7 +17,8 @@ const formatter = new Intl.NumberFormat("pt-BR", {
 });
 
 export const Cart = () => {
-  const { selectedSeats, selectedSession, setSelectedSeats } = useFilms();
+  const { selectedSeats, selectedSession, setSelectedSeats } =
+    useContextFilms();
 
   return (
     <Box>

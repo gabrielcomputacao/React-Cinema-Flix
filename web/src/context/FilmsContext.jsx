@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { useFilmsAPI } from "../hooks/useFilmsAPI";
 
 export const FilmsContext = createContext();
 
@@ -11,6 +12,7 @@ export const FilmsProvider = ({ children }) => {
     severity: "success",
     show: false,
   });
+  const films = useFilmsAPI();
 
   function onSetShowAlert(message, severity) {
     setShowAlert((prev) => {
@@ -20,7 +22,7 @@ export const FilmsProvider = ({ children }) => {
 
   function onClose() {
     setShowAlert((prev) => {
-      return { ...prev, message: "", severity: "success", show: false };
+      return { ...prev, message: "", show: false };
     });
   }
 
@@ -36,6 +38,7 @@ export const FilmsProvider = ({ children }) => {
         setSelectedSession,
         selectedSeats,
         setSelectedSeats,
+        films,
       }}
     >
       {children}

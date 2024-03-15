@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
-import { useFilms } from "../hooks/useFilms";
+import { useContextFilms } from "../hooks/useContextFilms";
 
 export const DescriptionFilm = () => {
-  const { selectedFilm } = useFilms();
+  const { selectedFilm } = useContextFilms();
 
   return (
     <Box display={"flex"} flexDirection={"column"} rowGap={1}>

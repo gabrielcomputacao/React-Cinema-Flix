@@ -1,18 +1,18 @@
 import { Container, Grid, Paper, Typography } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
-import { useFilms } from "../hooks/useFilms";
 
 import { useNavigate } from "react-router-dom";
-import { ButtonConfirm } from "../components/ButtonConfirm";
+import { BoxConfirm } from "../components/BoxConfirm";
 import { Cart } from "../components/Cart";
 import { Sections } from "../components/Sections";
 import { SelectSeat } from "../components/SelectSeat";
 import { DescriptionFilm } from "../components/DescriptionFilm";
+import { useContextFilms } from "../hooks/useContextFilms";
 
 export function CheckoutPage() {
   const { selectedFilm, onSetShowAlert, selectedSession, selectedSeats } =
-    useFilms();
+    useContextFilms();
 
   const [bookingName, setBookingName] = useState("");
 
@@ -69,7 +69,7 @@ export function CheckoutPage() {
                   <>
                     <Cart />
                     <form onSubmit={handleBookingSubmit}>
-                      <ButtonConfirm
+                      <BoxConfirm
                         bookingName={bookingName}
                         setBookingName={setBookingName}
                       />

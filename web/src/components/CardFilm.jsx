@@ -1,19 +1,42 @@
-import { Paper, Typography } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 
-import { Link } from "react-router-dom";
-import { useFilms } from "../hooks/useFilms";
+import { Link, useLocation } from "react-router-dom";
+import { useContextFilms } from "../hooks/useContextFilms";
+import { useMemo } from "react";
 
 export const CardFilm = ({ film, index }) => {
-  const { setSelectedFilm } = useFilms();
+  const { setSelectedFilm } = useContextFilms();
+
+  const { pathname } = useLocation();
+
+  const verificationPath = useMemo(() => {
+    return pathname === "/details";
+  }, [pathname]);
+
+  const Wrapper = ({ children }) => {
+    return verificationPath ? (
+      <Grid
+        key={film.id}
+        data-testid="film-display"
+        onClick={() => console.log("test")}
+      >
+        {children}
+      </Grid>
+    ) : (
+      <Link
+        key={film.id}
+        to={`/${index}`}
+        underline="none"
+        onClick={() => setSelectedFilm(film)}
+        data-testid="film-display"
+      >
+        {children}
+      </Link>
+    );
+  };
 
   return (
-    <Link
-      key={film.id}
-      to={`/${index}`}
-      underline="none"
-      onClick={() => setSelectedFilm(film)}
-      data-testid="film-display"
-    >
+    <Wrapper>
       <Paper
         elevation={4}
         sx={{
@@ -35,6 +58,6 @@ export const CardFilm = ({ film, index }) => {
           }}
         />
       </Paper>
-    </Link>
+    </Wrapper>
   );
 };

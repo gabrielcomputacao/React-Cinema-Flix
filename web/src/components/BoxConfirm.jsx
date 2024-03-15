@@ -1,6 +1,6 @@
 import { Box, Button, TextField } from "@mui/material";
 
-export const ButtonConfirm = ({ bookingName, setBookingName }) => {
+export const BoxConfirm = ({ bookingName, setBookingName }) => {
   return (
     <Box display="flex" flexDirection="column" gap={2}>
       <TextField

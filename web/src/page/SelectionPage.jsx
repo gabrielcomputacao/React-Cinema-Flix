@@ -1,17 +1,12 @@
 import { Container, Typography } from "@mui/material";
-import axios from "axios";
-import { useEffect, useState } from "react";
+
 import { Header } from "../components/Header";
 import { ListCardFilms } from "../components/ListCardFilms";
 
-export function SelectionPage() {
-  const [films, setFilms] = useState([]);
+import { useContextFilms } from "../hooks/useContextFilms";
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/films")
-      .then((response) => setFilms(response.data));
-  }, []);
+export function SelectionPage() {
+  const { films } = useContextFilms();
 
   return (
     <div>

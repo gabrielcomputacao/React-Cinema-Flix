@@ -1,8 +1,8 @@
 import { Alert, Snackbar } from "@mui/material";
-import { useFilms } from "../hooks/useFilms";
+import { useContextFilms } from "../hooks/useContextFilms";
 
 export const ShowAlert = () => {
-  const { showAlert, onClose } = useFilms();
+  const { showAlert, onClose } = useContextFilms();
 
   return (
     <Snackbar
