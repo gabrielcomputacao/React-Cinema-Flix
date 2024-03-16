@@ -11,8 +11,13 @@ import { DescriptionFilm } from "../components/DescriptionFilm";
 import { useContextFilms } from "../hooks/useContextFilms";
 
 export function CheckoutPage() {
-  const { selectedFilm, onSetShowAlert, selectedSession, selectedSeats } =
-    useContextFilms();
+  const {
+    selectedFilm,
+    setSelectedFilm,
+    onSetShowAlert,
+    selectedSession,
+    selectedSeats,
+  } = useContextFilms();
 
   const [bookingName, setBookingName] = useState("");
 
@@ -40,6 +45,7 @@ export function CheckoutPage() {
     });
 
     onSetShowAlert("Reserva efetuada com sucesso!", "success");
+    setSelectedFilm();
     navigate("/");
   }
 

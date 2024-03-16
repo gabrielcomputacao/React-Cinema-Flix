@@ -19,6 +19,7 @@ export const SessionTable = ({ dataSelectedFilm }) => {
   const theme = useTheme();
 
   const matchesLg = useMediaQuery(theme.breakpoints.down("lg"));
+  const matchesMd = useMediaQuery(theme.breakpoints.down("md"));
 
   const { selectedFilm } = useContext(FilmsContext);
 
@@ -57,9 +58,25 @@ export const SessionTable = ({ dataSelectedFilm }) => {
                   >
                     <TableHead sx={{ borderRadius: "10px" }}>
                       <TableRow>
-                        <TableCell sx={{ width: "45%" }}>Nome</TableCell>
-                        <TableCell sx={{ width: "45%" }}>Assento</TableCell>
-                        <TableCell>Valor</TableCell>
+                        <TableCell
+                          sx={
+                            matchesMd
+                              ? { width: "45%", border: "none" }
+                              : { width: "auto", border: "none" }
+                          }
+                        >
+                          Nome
+                        </TableCell>
+                        <TableCell
+                          sx={
+                            matchesMd
+                              ? { width: "45%", border: "none" }
+                              : { width: "auto", border: "none" }
+                          }
+                        >
+                          Assento
+                        </TableCell>
+                        <TableCell sx={{ border: "none" }}>Valor</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody
@@ -80,21 +97,33 @@ export const SessionTable = ({ dataSelectedFilm }) => {
                             arrayValueEspec[index] = addValue;
                             arrayValueAmount[index] = addAmount;
                             return (
-                              <TableRow
-                                key={row.name}
-                                sx={{
-                                  border: 0,
-                                  borderRadius: "10px",
-                                }}
-                              >
-                                <TableCell align="left">{row.name}</TableCell>
+                              <TableRow key={row.name}>
+                                <TableCell
+                                  sx={{
+                                    border: "none",
+                                    borderTopLeftRadius: "10px",
+                                    borderBottomLeftRadius: "10px",
+                                  }}
+                                  align="left"
+                                >
+                                  {row.name}
+                                </TableCell>
 
-                                <TableCell align="left">
+                                <TableCell sx={{ border: "none" }} align="left">
                                   {row.seats.map((item) => (
                                     <span key={item}>{`${item} `}</span>
                                   ))}
                                 </TableCell>
-                                <TableCell align="left">{row.value}</TableCell>
+                                <TableCell
+                                  sx={{
+                                    border: "none",
+                                    borderTopRightRadius: "10px",
+                                    borderBottomRightRadius: "10px",
+                                  }}
+                                  align="left"
+                                >
+                                  {row.value}
+                                </TableCell>
                               </TableRow>
                             );
                           }
@@ -105,6 +134,7 @@ export const SessionTable = ({ dataSelectedFilm }) => {
                 <Box
                   display={"flex"}
                   justifyContent={"space-between"}
+                  flexDirection={matchesMd ? "column" : "row"}
                   width={"100%"}
                   alignItems={"center"}
                   marginTop={"2rem"}

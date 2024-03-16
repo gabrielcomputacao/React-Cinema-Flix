@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import { useFilmsAPI } from "../hooks/useFilmsAPI";
 
 export const FilmsContext = createContext();
 
@@ -7,12 +6,12 @@ export const FilmsProvider = ({ children }) => {
   const [selectedFilm, setSelectedFilm] = useState();
   const [selectedSession, setSelectedSession] = useState();
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [films, setFilms] = useState([]);
   const [showAlert, setShowAlert] = useState({
     message: "",
     severity: "success",
     show: false,
   });
-  const { films, setFilms } = useFilmsAPI();
 
   function onSetShowAlert(message, severity) {
     setShowAlert((prev) => {

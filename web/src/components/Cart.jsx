@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import toogleSeatClick from "../utils/toogleSeatClick";
+import { toogleSeatClick } from "../utils/toogleSeatClick";
 import { useContextFilms } from "../hooks/useContextFilms";
 
 const formatter = new Intl.NumberFormat("pt-BR", {

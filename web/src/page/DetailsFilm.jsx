@@ -9,7 +9,7 @@ import { BoxDataFilmDetails } from "../components/BoxDataFilmDetails";
 import { SessionTable } from "../components/SessionTable.jsx";
 
 export const DetailsFilm = () => {
-  const { films, selectedFilm } = useContextFilms();
+  const { films, selectedFilm, setSelectedFilm, setFilms } = useContextFilms();
   const [dataSelectedFilm, setDataSelectedFilm] = useState();
 
   useEffect(() => {
@@ -19,6 +19,14 @@ export const DetailsFilm = () => {
         .then((response) => setDataSelectedFilm(response.data));
     }
   }, [selectedFilm]);
+
+  useEffect(() => {
+    setSelectedFilm();
+
+    axios
+      .get("http://localhost:3000/films")
+      .then((response) => setFilms(response.data));
+  }, [setSelectedFilm]);
 
   return (
     <div>

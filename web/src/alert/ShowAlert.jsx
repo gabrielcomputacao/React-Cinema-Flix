@@ -1,8 +1,10 @@
 import { Alert, Snackbar } from "@mui/material";
-import { useContextFilms } from "../hooks/useContextFilms";
+
+import { useContext } from "react";
+import { FilmsContext } from "../context/FilmsContext";
 
 export const ShowAlert = () => {
-  const { showAlert, onClose } = useContextFilms();
+  const { showAlert, onClose } = useContext(FilmsContext);
 
   return (
     <Snackbar

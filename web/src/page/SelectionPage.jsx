@@ -4,9 +4,17 @@ import { Header } from "../components/Header";
 import { ListCardFilms } from "../components/ListCardFilms";
 
 import { useContextFilms } from "../hooks/useContextFilms";
+import { useEffect } from "react";
+import axios from "axios";
 
 export function SelectionPage() {
-  const { films } = useContextFilms();
+  const { films, setFilms } = useContextFilms();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/films")
+      .then((response) => setFilms(response.data));
+  }, []);
 
   return (
     <div>

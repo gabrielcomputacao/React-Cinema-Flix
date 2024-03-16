@@ -10,8 +10,10 @@ export const CardFilm = ({ film, index }) => {
   const { pathname } = useLocation();
 
   const verificationPath = useMemo(() => {
-    return pathname === "/details";
+    return pathname !== "/details";
   }, [pathname]);
+
+  console.log(pathname);
 
   const handleCardFilmDetails = () => {
     setSelectedFilm(film);
@@ -20,14 +22,6 @@ export const CardFilm = ({ film, index }) => {
 
   const Wrapper = ({ children }) => {
     return verificationPath ? (
-      <Grid
-        key={film.id}
-        data-testid="film-display"
-        onClick={handleCardFilmDetails}
-      >
-        {children}
-      </Grid>
-    ) : (
       <Link
         key={film.id}
         to={`/${index}`}
@@ -37,6 +31,14 @@ export const CardFilm = ({ film, index }) => {
       >
         {children}
       </Link>
+    ) : (
+      <Grid
+        key={film.id}
+        data-testid="film-display"
+        onClick={() => handleCardFilmDetails()}
+      >
+        {children}
+      </Grid>
     );
   };
 
