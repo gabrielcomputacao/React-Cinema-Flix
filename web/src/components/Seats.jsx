@@ -1,8 +1,7 @@
 import ChairIcon from "@mui/icons-material/Chair";
 import { Grid, IconButton } from "@mui/material";
 
-
-import toogleSeatClick from "../utils/toogleSeatClick";
+import { toogleSeatClick } from "../utils/toogleSeatClick";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useContextFilms } from "../hooks/useContextFilms";
@@ -14,7 +13,7 @@ const CINEMA_ROOM_SIZE = Object.freeze({
 
 export const Seats = () => {
   const { selectedSeats, setSelectedSeats, selectedSession, selectedFilm } =
-  useContextFilms();
+    useContextFilms();
   const [bookingSeats, setBookingSeats] = useState([]);
 
   useEffect(() => {

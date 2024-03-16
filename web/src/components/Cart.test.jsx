@@ -3,6 +3,7 @@ import { expect, it, vi } from "vitest";
 import { App } from "../App";
 import { fireEvent, render, screen } from "@testing-library/react";
 import axios from "axios";
+import { toogleSeatClick } from "../utils/toogleSeatClick";
 
 it("should be render Cart ", async () => {
   vi.spyOn(axios, "get").mockResolvedValue({
@@ -48,6 +49,18 @@ it("should be render Cart ", async () => {
     ],
   });
 
+  // const onClick = vi.fn();
+
+  vi.mock("../utils/toogleSeatClick", () => {
+    return {
+      toogleSeatClick: vi.fn((seat, setSelectedSeats) => {
+        setSelectedSeats((prev) =>
+          prev.includes(seat) ? prev.filter((i) => i !== seat) : [...prev, seat]
+        );
+      }),
+    };
+  });
+
   await act(() => render(<App />));
 
   const elementCardFilm = screen.getByText("Titanic");
@@ -65,4 +78,5 @@ it("should be render Cart ", async () => {
   const elementCart = screen.getByText("Carrinho");
 
   expect(elementCart).toBeInTheDocument();
+  expect(toogleSeatClick).toBeCalled();
 });
