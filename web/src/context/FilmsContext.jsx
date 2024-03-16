@@ -12,7 +12,7 @@ export const FilmsProvider = ({ children }) => {
     severity: "success",
     show: false,
   });
-  const films = useFilmsAPI();
+  const { films, setFilms } = useFilmsAPI();
 
   function onSetShowAlert(message, severity) {
     setShowAlert((prev) => {
@@ -39,6 +39,7 @@ export const FilmsProvider = ({ children }) => {
         selectedSeats,
         setSelectedSeats,
         films,
+        setFilms,
       }}
     >
       {children}

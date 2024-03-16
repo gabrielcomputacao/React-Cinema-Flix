@@ -2,13 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export const useFilmsAPI = () => {
-  const [filmsApi, setFilmsApi] = useState([]);
+  const [films, setFilms] = useState([]);
 
   useEffect(() => {
     axios
       .get("http://localhost:3000/films")
-      .then((response) => setFilmsApi(response.data));
+      .then((response) => setFilms(response.data));
   }, []);
 
-  return filmsApi;
+  return { films, setFilms };
 };

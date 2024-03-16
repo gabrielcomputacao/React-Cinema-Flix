@@ -5,7 +5,7 @@ import { useContextFilms } from "../hooks/useContextFilms";
 import { useMemo } from "react";
 
 export const CardFilm = ({ film, index }) => {
-  const { setSelectedFilm } = useContextFilms();
+  const { setSelectedFilm, setFilms } = useContextFilms();
 
   const { pathname } = useLocation();
 
@@ -13,12 +13,17 @@ export const CardFilm = ({ film, index }) => {
     return pathname === "/details";
   }, [pathname]);
 
+  const handleCardFilmDetails = () => {
+    setSelectedFilm(film);
+    setFilms((prev) => prev.filter((cardFilm) => cardFilm.id !== film.id));
+  };
+
   const Wrapper = ({ children }) => {
     return verificationPath ? (
       <Grid
         key={film.id}
         data-testid="film-display"
-        onClick={() => console.log("test")}
+        onClick={handleCardFilmDetails}
       >
         {children}
       </Grid>
