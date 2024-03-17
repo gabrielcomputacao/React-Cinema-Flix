@@ -5,11 +5,11 @@ componentes atomicos, tentei isolar todas as funções e componentes para ter ap
 para extensões e fechados para mudança usando o principio O do SOLID, com a context API tentei implementar a arquitetura flux para gerenciar estados com um fluxo uniderecional
 e coloquei rotas para as páginas para ser mais escalável.
 
-## Bibliotecas Instaladas
-
 ### Context API
 
 Para implementar a arquitetura flux , foi escolhido a api nativa do react context Api, porque o sistema não precisava escalar tanto e com a api nativa foi de fácil implementação.
+
+## Bibliotecas Instaladas
 
 ### React router Dom
 
